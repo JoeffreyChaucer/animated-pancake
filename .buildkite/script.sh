@@ -5,10 +5,10 @@ set -euo pipefail
 echo $BUILDKITE_COMMIT
 
 
-git diff --stat HEAD
+git diff --stat $BUILDKITE_COMMIT...$BUILDKITE_PULL_REQUEST_BASE_BRANCH
 
 
-if ! git diff --name-only HEAD~ | grep -qvE '(.md)'
+if ! git diff --name-only $BUILDKITE_COMMIT...$BUILDKITE_PULL_REQUEST_BASE_BRANCH | grep -qvE '(.md)'
 then
     echo "Only doc files were updated, not running the CI."
     exit
