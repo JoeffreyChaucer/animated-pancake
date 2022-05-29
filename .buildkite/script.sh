@@ -13,3 +13,12 @@ then
     echo "Only doc files were updated, not running the CI."
     exit
 fi
+
+
+echo "Running pr-validation pipeline."
+
+    buildkite-agent pipeline upload <<YAML
+steps:
+  - label: "The pr pipeline"
+    command: "buildkite-agent pipeline upload .buildkite/pipeline.yml"
+YAML
