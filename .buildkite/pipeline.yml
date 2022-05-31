@@ -1,3 +1,15 @@
+Defaults:
+  agents:
+    queue: 'default'
+  plugins: &plugins
+    - chronotc/monorepo-diff#v2.3.0:
+        diff: 'git diff --name-only HEAD~1'
+        watch:
+          - path: '*'
+            config:
+              command: 'echo deploy-bar'
+
 steps:
   - label: ':pipeline:'
     command: 'echo hello world 1'
+    plugins: *plugins
