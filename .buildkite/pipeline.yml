@@ -8,4 +8,4 @@ defaults:
 steps:
   - label: *label
     command: *command
-    plugin: *plugins
+    plugins: *plugins
