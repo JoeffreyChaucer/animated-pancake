@@ -10,11 +10,3 @@ if ! git diff --name-only "$BUILDKITE_PULL_REQUEST_BASE_BRANCH".."$BUILDKITE_COM
     echo "Only doc files were updated, not running the CI."
     exit 0
 fi
-
-echo "Running pr-pipeline."
-
-buildkite-agent pipeline upload <<YAML
-steps:
-  - label: ":pipeline:"
-    command: "buildkite-agent pipeline upload .buildkite/pr-pipeline.yml"
-YAML
