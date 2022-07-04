@@ -1,3 +1,11 @@
+defaults:
+    label: &label ':pipeline:' 
+    command: &command 'echo hello world 1' 
+    plugins: &plugins
+      - dlcmh/file-counter#v1.0.0:
+          pattern: '*.md'
+          
 steps:
-  - label: ':pipeline:'
-    command: 'echo hello world'
+  - label: *label
+    command: *command
+    plugins: *plugins
