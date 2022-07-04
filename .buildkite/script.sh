@@ -18,6 +18,8 @@ echo "Running pr-validation pipeline."
 
     buildkite-agent pipeline upload <<YAML
 steps:
-  - label: "The pr pipeline"
-    command: "buildkite-agent pipeline upload .buildkite/pipeline.yml"
+  - label: ":pipeline:"
+    command: "buildkite-agent pipeline upload .buildkite/pr-pipeline.yml"
+    agents:
+      queue: "seeksalesforceprod:cicd"
 YAML
