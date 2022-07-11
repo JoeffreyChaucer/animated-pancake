@@ -1,11 +1,20 @@
-defaults:
-    label: &label ':pipeline:' 
-    command: &command 'echo hello world 1' 
-    plugins: &plugins
-      - dlcmh/file-counter#v1.0.0:
-          pattern: '*.md'
-          
 steps:
-  - label: *label
-    command: *command
-    plugins: *plugins
+  - input: ":white_check_mark: Get Definition"
+    key: "definitionPath"
+    if: *build_branch
+    fields:
+      - select: "Branch Release Stream"
+        key: "branch-release-stream"
+        hint: "Which release stream does this belong in? :fork:"
+        options:
+          - label: "MST01"
+            value: "release-docs-mst01"
+      - text: "Release Version #"
+        key: "release-version"
+        hint: "What's the # name for this release? :name_badge:"
+
+  - label: Test
+    commands: .buildkite/script.sh mst01
+
+  - label: Test 2
+    commands: "echo Hello" || .buildkite/release-docs-1.sh
