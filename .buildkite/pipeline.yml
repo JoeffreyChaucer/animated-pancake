@@ -13,9 +13,10 @@ steps:
         hint: "What's the # name for this release? :name_badge:"
 
   - label: Test
+    key: test
     depends_on: "definitionPath"
     commands: .buildkite/script.sh mst01
 
   - label: Test
-    depends_on: "definitionPath"
+    depends_on: "test"
     commands: .buildkite/release-docs-1.sh
