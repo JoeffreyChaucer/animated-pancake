@@ -22,9 +22,6 @@ deploy_release_to_sandbox(){
     echo "release-docs-${VERSION}"
 }
 
-cleanup_temporary_file() {
-    trap release-docs-"$VERSION".sh EXIT
-}
 
 
 main() {
