@@ -11,6 +11,7 @@ steps:
       - text: "Release Version #"
         key: "release-version"
         hint: "What's the # name for this release? :name_badge:"
+        default: "Latest"
 
   - label: Test
     key: test
@@ -19,4 +20,4 @@ steps:
 
   - label: Test
     depends_on: "test"
-    commands: ./release-docs-1.sh
+    commands: .buildkite/release-docs-1.sh || .buildkite/latest.sh

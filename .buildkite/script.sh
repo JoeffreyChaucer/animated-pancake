@@ -11,7 +11,7 @@ authenticate_to_sandbox() {
 }
 
 temporary_file(){
-    echo "--- Getting to $1"
+    echo "--- Getting"
     git fetch
     git show origin/"$BRANCH":.buildkite/release-docs-"$VERSION".sh > release-docs-"$VERSION".sh
 }
@@ -34,7 +34,11 @@ main() {
 
     install_sfdx_plugins
     authenticate_to_sandbox "$SANDBOX_NAME"
-    temporary_file "$SANDBOX_NAME"
+
+    if [ $VERSION != "Latest" ]; then
+        temporary_file
+    fi
+
     deploy_release_to_sandbox "$SANDBOX_NAME"
 
 }
