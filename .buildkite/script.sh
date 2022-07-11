@@ -10,7 +10,7 @@ authenticate_to_sandbox() {
     echo "--- Authenticating to $1"
 }
 
-tempoary_file(){
+temporary_file(){
     echo "--- Getting to $1"
     local branch
     local version
@@ -37,10 +37,11 @@ cleanup_temporary_file() {
 
 
 main() {
+    SANDBOX_NAME="$1"
     install_sfdx_plugins
-    authenticate_to_sandbox "$1"
-    tempoary_file
-    deploy_release_to_sandbox "$1"
+    authenticate_to_sandbox "$SANDBOX_NAME"
+    temporary_file "$SANDBOX_NAME"
+    deploy_release_to_sandbox "$SANDBOX_NAME"
     cleanup_temporary_file
 }
 
