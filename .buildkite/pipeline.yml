@@ -15,3 +15,7 @@ steps:
   - label: Test
     depends_on: "definitionPath"
     commands: .buildkite/script.sh mst01
+
+  - label: Test
+    depends_on: "definitionPath"
+    commands: .buildkite/release-docs-1.sh
