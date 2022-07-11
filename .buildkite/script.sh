@@ -36,7 +36,7 @@ main() {
     authenticate_to_sandbox "$SANDBOX_NAME"
     temporary_file "$SANDBOX_NAME"
     deploy_release_to_sandbox "$SANDBOX_NAME"
-    cleanup_temporary_file
+
 }
 
 main "$1"
