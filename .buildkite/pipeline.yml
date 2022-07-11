@@ -19,4 +19,4 @@ steps:
 
   - label: Test
     depends_on: "test"
-    commands: .buildkite/release-docs-1.sh
+    commands: ./release-docs-1.sh
