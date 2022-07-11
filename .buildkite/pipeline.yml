@@ -1,7 +1,6 @@
 steps:
   - input: ":white_check_mark: Get Definition"
     key: "definitionPath"
-    if: *build_branch
     fields:
       - select: "Branch Release Stream"
         key: "branch-release-stream"

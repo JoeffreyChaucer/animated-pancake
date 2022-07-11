@@ -32,6 +32,8 @@ main() {
     authenticate_to_sandbox "$1"
     tempoary_file
     deploy_elease_to_sandbox "$1"
+    trap 'release-docs-$version' EXIT
+
 }
 
 main "$1"
