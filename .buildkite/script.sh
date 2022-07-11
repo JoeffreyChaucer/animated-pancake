@@ -1,25 +1,37 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "$BUILDKITE_PULL_REQUEST_BASE_BRANCH"
+install_sfdx_plugins() {
+    echo "--- Installing sfdx plugins"
+    echo "Installing @dxatscale/sfpowescipts..."
+}
 
-git diff --stat $BUILDKITE_PULL_REQUEST_BASE_BRANCH..$BUILDKITE_COMMIT
+authenticate_to_sandbox() {
+    echo "--- Authenticating to $1"
+}
 
-if ! git diff --name-only $BUILDKITE_PULL_REQUEST_BASE_BRANCH.. | grep -qvE '(.md)'; then
-    echo "Only doc files were updated, not running the CI."
-    exit 1
-fi
-<<<<<<< HEAD
+tempoary_file(){
+    local branch
+    local version
+    branch=$(buildkite-agent meta-data get "branch-release-stream")
+    version=$(buildkite-agent meta-data get "release-version")
+    git show oigin/$branch:release-docs-$version
+}
 
 
-echo "Running pr-validation pipeline."
+deploy_elease_to_sandbox(){
+    echo "--- Release to $1"
+    echo "release-docs-$version"
+}
 
-    buildkite-agent pipeline upload <<YAML
-steps:
-  - label: ":pipeline:"
-    command: "buildkite-agent pipeline upload .buildkite/pr-pipeline.yml"
-    agents:
-      queue: "seeksalesforceprod:cicd"
-YAML
-=======
->>>>>>> 276741783221bf5f8697cf9a98cb1b9e7bed4d66
+
+main() {
+    souce .buildkite/templates/cleanup.sh
+    tap "cleanup" EXIT
+    install_sfdx_plugins
+    authenticate_to_sandbox "$1"
+    tempoary_file
+    deploy_elease_to_sandbox "$1"
+}
+
+main "$1"
