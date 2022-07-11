@@ -26,8 +26,6 @@ deploy_elease_to_sandbox(){
 
 
 main() {
-    souce .buildkite/templates/cleanup.sh
-    tap "cleanup" EXIT
     install_sfdx_plugins
     authenticate_to_sandbox "$1"
     tempoary_file
