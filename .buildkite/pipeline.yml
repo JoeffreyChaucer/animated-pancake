@@ -14,6 +14,3 @@ steps:
 
   - label: Test
     commands: .buildkite/script.sh mst01
-
-  - label: Test 2
-    commands: "echo Hello" || .buildkite/release-docs-1.sh
