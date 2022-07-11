@@ -15,6 +15,7 @@ tempoary_file(){
     local version
     branch=$(buildkite-agent meta-data get "branch-release-stream")
     version=$(buildkite-agent meta-data get "release-version")
+    git fetch
     git show oigin/$branch:release-docs-$version
 }
 
