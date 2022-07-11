@@ -12,32 +12,29 @@ authenticate_to_sandbox() {
 
 temporary_file(){
     echo "--- Getting to $1"
-    local branch
-    local version
-    branch=$(buildkite-agent meta-data get "branch-release-stream")
-    version=$(buildkite-agent meta-data get "release-version")
     git fetch
-    git show origin/"$branch":.buildkite/release-docs-"$version".sh > release-docs-"$version".sh
-
+    git show origin/"$BRANCH":.buildkite/release-docs-"$VERSION".sh > release-docs-"$VERSION".sh
 }
 
 
 deploy_release_to_sandbox(){
-    local version
     echo "--- Release to $1"
-    version=$(buildkite-agent meta-data get "release-version")
-    echo "release-docs-$version"
+    echo "release-docs-${VERSION}"
 }
 
 cleanup_temporary_file() {
-    local version
-    version=$(buildkite-agent meta-data get "release-version")
-    trap 'release-docs-$version' EXIT
+    trap release-docs-"$VERSION".sh EXIT
 }
 
 
 main() {
-    SANDBOX_NAME="$1"
+    local VERSION
+    local BRANCH
+    local SANDBOX_NAME="$1"
+    VERSION=$(buildkite-agent meta-data get "release-version")
+    BRANCH=$(buildkite-agent meta-data get "branch-release-stream")
+
+
     install_sfdx_plugins
     authenticate_to_sandbox "$SANDBOX_NAME"
     temporary_file "$SANDBOX_NAME"
